@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow – Personal Task Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <span class="logo-icon">✅</span>
+        <h1>TaskFlow</h1>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">🌙</button>
+    </header>
+
+    <!-- Stats bar -->
+    <div class="stats" id="stats">
+      <div class="stat-card">
+        <span class="stat-number" id="total-count">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="active-count">0</span>
+        <span class="stat-label">Active</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="completed-count">0</span>
+        <span class="stat-label">Done</span>
+      </div>
+      <div class="stat-card progress-card">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="stat-label" id="progress-text">0% complete</span>
+      </div>
+    </div>
+
+    <!-- Add task form -->
+    <form id="task-form" class="task-form">
+      <input type="text" id="task-title" placeholder="What needs to be done?" required autocomplete="off">
+      <select id="task-priority">
+        <option value="low">🟢 Low</option>
+        <option value="medium" selected>🟡 Medium</option>
+        <option value="high">🔴 High</option>
+      </select>
+      <input type="text" id="task-category" placeholder="Category (e.g. Work)" autocomplete="off">
+      <input type="date" id="task-due">
+      <button type="submit" id="add-btn">Add Task</button>
+    </form>
+
+    <!-- Controls -->
+    <div class="controls">
+      <input type="search" id="search" placeholder="Search tasks..." autocomplete="off">
+      <div class="filters">
+        <button data-filter="all" class="filter-btn active">All</button>
+        <button data-filter="active" class="filter-btn">Active</button>
+        <button data-filter="completed" class="filter-btn">Completed</button>
+      </div>
+      <select id="priority-filter">
+        <option value="all">All Priorities</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+    </div>
+
+    <!-- Task list -->
+    <ul id="task-list" class="task-list"></ul>
+
+    <!-- Empty state (shown via JS) -->
+    <div id="empty-state" class="empty-state hidden">
+      <div class="empty-icon">📋</div>
+      <h3>No tasks yet</h3>
+      <p>Add your first task above to get started!</p>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Edit Task</h2>
+      <form id="edit-form">
+        <input type="text" id="edit-title" required>
+        <select id="edit-priority">
+          <option value="low">🟢 Low</option>
+          <option value="medium">🟡 Medium</option>
+          <option value="high">🔴 High</option>
+        </select>
+        <input type="text" id="edit-category" placeholder="Category">
+        <input type="date" id="edit-due">
+        <div class="modal-actions">
+          <button type="button" id="cancel-edit" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
